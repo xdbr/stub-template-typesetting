@@ -3,6 +3,16 @@ VERBOSE = false
 
 task :default => [ 'project:new' ]
 
+namespace 'list' do
+
+  desc 'List available templates'
+  task :templates do
+    FileList['template/*'].each do |tmpl|
+      puts tmpl
+    end
+  end
+end
+
 namespace 'project' do
   desc 'Get info about a project'
   task :info do |t|

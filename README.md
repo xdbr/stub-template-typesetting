@@ -41,6 +41,10 @@ stunningly simple & stupid language agnostic project generator
     stub -T
     stub --tasks
 
+## Listing all templates
+
+    stub list:templates
+
 ## Installation
 
 TBD.

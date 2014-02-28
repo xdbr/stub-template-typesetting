@@ -6,7 +6,7 @@ task :default => [ 'new:project', :copy ]
 namespace 'new' do
   desc 'Stub out new poject'
   task :project do |t|
-    die "argument template=PROJECTNAME required! Abort.", 99 if ENV['template'].nil?
+    die "argument template=PROJECTNAME required! Abort.", 99 unless ENV.to_hash.minimum? ['template', 'to']
 
     require 'JSON'
 
@@ -32,6 +32,12 @@ end # namespace
 #
 
 class Hash
+  def minimum?(keys_needed)
+    keys_needed.each do |key|
+      die "Key '#{key}' needed! Abort.", 7 if self[key].nil?
+    end
+  end
+
   def merge_env!
     merge_keys_from_env = [ 'to', 'template']
     merge_keys_from_env.each do |key|

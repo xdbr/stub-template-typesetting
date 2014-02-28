@@ -1,23 +1,31 @@
 DEBUG = ENV['DEBUG'] || false
 VERBOSE = false
 
-task :default => [ 'new:project', :copy ]
+task :default => [ 'project:new' ]
 
-namespace 'new' do
+namespace 'project' do
+  desc 'Get info about a project'
+  task :info do |t|
+    require 'JSON'
+
+    project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
+    puts project.info
+  end
+
   desc 'Stub out new poject'
-  task :project do |t|
+  task :new do |t|
     die "argument template=PROJECTNAME required! Abort.", 99 unless ENV.to_hash.minimum? ['template', 'to']
 
     require 'JSON'
 
-    json = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
+    project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
 
-    json.check_required_args!
-    json.check_optional_args!
-    json.update!
+    project.check_required_args!
+    project.check_optional_args!
+    project.update!
     
-    copy_project json['name'], json['template'], json['to']
-    do_substitute json, json['to'], json.keys
+    copy_project project['name'], project['template'], project['to']
+    do_substitute project, project['to'], project.keys
   end
 end # namespace
 
@@ -60,6 +68,16 @@ class Hash
     self['optional'].keys do |key|
       self[key] = ENV[key] || self['optional'][key]
     end
+  end
+  
+  def info
+    puts "Template: #{ENV['template']}"
+    puts "Required keys:"
+    self['requires'].each { |r| puts "\t#{r}" }
+    
+    puts "\nOptional keys:"
+    self['optional'].each { |r| puts "\t#{r}" }
+    ''
   end
 end
 

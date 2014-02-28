@@ -18,8 +18,17 @@ namespace 'project' do
 
     require 'JSON'
 
-    project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
+    is_local = File.exists?("template/#{ENV['template']}")
+    puts is_local
 
+    project = {}
+    if is_local
+      project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
+    else
+      template = %x: git clone #{ENV['template']} #{ENV['to']} :
+      # save this to some tmp/ dir first and delete afterwards if necessary
+      project = JSON.load(File.new("./#{ENV['to']}/project.json"))
+    end
     project.check_required_args!
     project.check_optional_args!
     project.update!
@@ -66,7 +75,6 @@ class Hash
         self['requires'][key] = ENV[key]
       end
     end
-    x self['requires']
   end
 
   def check_optional_args!
@@ -90,12 +98,11 @@ end
 # functions that are available to tasks
 #
 def copy_project name='', template='', dest=''
-  puts "File.exists?(dest) #{File.exists?(dest)}" if DEBUG            ### ????
+  # puts "File.exists?(dest) #{File.exists?(dest)}" if DEBUG            ### ????
   die "Project already exists at #{dest} \
        and would be overwritten! Abort.", 2 if File.exists?(dest)
 
-  # else
-    # Dir.mkdir dest # gah! no mkdir -p...
+  # Dir.mkdir dest # gah! no mkdir -p...
   verbose(VERBOSE) do
     sh "mkdir -p #{dest}" do |ok, err|
       die "err: err", 3 if !ok

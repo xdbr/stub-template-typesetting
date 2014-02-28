@@ -18,7 +18,7 @@ namespace 'project' do
 
     require 'JSON'
 
-    project = JSON.load(File.new("./template/#{ENV['template']}/project.json")).to_hash
+    project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
     
     project
     project.check_required_args!

@@ -18,8 +18,9 @@ namespace 'project' do
 
     require 'JSON'
 
-    project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
-
+    project = JSON.load(File.new("./template/#{ENV['template']}/project.json")).to_hash
+    
+    project
     project.check_required_args!
     project.check_optional_args!
     project.update!
@@ -59,9 +60,14 @@ class Hash
   end
 
   def check_required_args!
-    self['requires'].keys do |key|
-      die "Required argument missing: #{key}", 66 if ENV[key].nil?
+    self['requires'].keys.each do |key|
+      if ENV[key].nil?
+        die "Required argument missing: #{key}", 66 
+      else
+        self['requires'][key] = ENV[key]
+      end
     end
+    x self['requires']
   end
 
   def check_optional_args!
@@ -116,10 +122,11 @@ def do_substitute args, dest, subs=[]
   # this Filelist will only match files which include a dot / have and extension!
   files = FileList["#{dest}/**/*.*"]
 
+x args
   files.each do |file|
     subs.each do |sub|
       puts "file: #{file}" if DEBUG
-      puts "sub: #{sub} -> #{args[sub]}" if DEBUG
+      puts "sub: #{sub} -> #{args[sub]}" 
       cmd = "perl -i -pe 's<\\{\\{#{sub}\\}\\}><#{args[sub]}>go' #{file}"
       verbose(VERBOSE) do
         sh cmd do |ok, err|

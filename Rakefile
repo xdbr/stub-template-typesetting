@@ -19,12 +19,11 @@ namespace 'project' do
     require 'JSON'
 
     project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
-    
-    project
+
     project.check_required_args!
     project.check_optional_args!
     project.update!
-    
+
     copy_project project['name'], project['template'], project['to']
     do_substitute project, project['to'], project.keys
   end
@@ -62,7 +61,7 @@ class Hash
   def check_required_args!
     self['requires'].keys.each do |key|
       if ENV[key].nil?
-        die "Required argument missing: #{key}", 66 
+        die "Required argument missing: #{key}", 66
       else
         self['requires'][key] = ENV[key]
       end
@@ -75,12 +74,12 @@ class Hash
       self[key] = ENV[key] || self['optional'][key]
     end
   end
-  
+
   def info
     puts "Template: #{ENV['template']}"
     puts "Required keys:"
     self['requires'].each { |r| puts "\t#{r}" }
-    
+
     puts "\nOptional keys:"
     self['optional'].each { |r| puts "\t#{r}" }
     ''
@@ -126,7 +125,7 @@ x args
   files.each do |file|
     subs.each do |sub|
       puts "file: #{file}" if DEBUG
-      puts "sub: #{sub} -> #{args[sub]}" 
+      puts "sub: #{sub} -> #{args[sub]}"
       cmd = "perl -i -pe 's<\\{\\{#{sub}\\}\\}><#{args[sub]}>go' #{file}"
       verbose(VERBOSE) do
         sh cmd do |ok, err|

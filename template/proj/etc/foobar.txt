@@ -1,7 +1,7 @@
-#ifndef xxx
-#define xxx
+#ifndef {{name}}
+#define {{name}}
 
-class {{FOO}} {
+class {{name}}Class {
   int bar = {{bar}};
 };
 

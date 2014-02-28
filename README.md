@@ -36,6 +36,15 @@ stunningly simple & stupid language agnostic project generator
       }
     }
 
+## Finding all tasks
+
+    stub -T
+    stub --tasks
+
+## Installation
+
+TBD.
+
 ## Author
 
 Daniel B <daniel@codeedition.de>

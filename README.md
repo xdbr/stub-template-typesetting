@@ -26,6 +26,7 @@ stunningly simple & stupid language agnostic project generator
 3. write a file `project.json`, put it in the top directory of you skeleton.
 4. Use the following layout for your `project.json`:
 
+```
     {
       "requires": {
         "name"   : "string",
@@ -35,6 +36,7 @@ stunningly simple & stupid language agnostic project generator
         "author": "Quux"
       }
     }
+```
 
 ## Finding all tasks
 

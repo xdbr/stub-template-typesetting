@@ -67,7 +67,8 @@ end
 namespace 'check' do
 
   task :args, [:args] do |t, args|
-    keys.each do |key|
+    args.each do |key|
+      puts "check key: #{key}"
       unless args[key]
         puts "Argument '#{key}' required!" if DEBUG
         exit 1
@@ -76,6 +77,17 @@ namespace 'check' do
   end
 end
 
+def checker proj, args
+  require "JSON"
+  res = JSON.load(File.new("#{proj}/project.json"))
+  res['requires'].keys.each do |key|
+    if ENV[key].nil?
+      puts "Key: #{key} is required on the CLI"
+      exit 42
+    end
+  end
+  res
+end
 
 #
 # tasks are separated into namespaces
@@ -94,6 +106,8 @@ namespace 'new' do
       :version => ENV['version'] || '.',
       :dest => ENV['dest'] || ENV['to'] || '.'
     )
+    # Rake::Task['check:args'].invoke(ENV)
+    checker :template, args
     check_args args, [:dest, :name, :template, :version]
     copy_project args.name, args.template, args.dest
     do_substitute args, args.dest, [:name, :template, :version]

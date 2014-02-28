@@ -1,0 +1,8 @@
+#ifndef xxx
+#define xxx
+
+class {{FOO}} {
+  int bar = {{bar}};
+};
+
+#endif

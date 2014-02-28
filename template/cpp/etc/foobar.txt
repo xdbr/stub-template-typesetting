@@ -2,7 +2,7 @@
 #define {{name}}
 
 class {{name}}Class {
-  int bar = {{bar}};
+  std::string template_used = "{{template}}";
 };
 
 #endif

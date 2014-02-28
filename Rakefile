@@ -13,14 +13,29 @@ task :default => [ 'new:project', :copy ]
 #
 # functions that are available to tasks
 #
-def copy_project name='', dest=''
+def copy_project name='', template='', dest=''
+  puts "File.exists?(dest) #{File.exists?(dest)}" ### ????
+  if File.exists?(dest)
+    puts "Project already exists at #{dest} and would be overwritten! Abort."
+    exit 2
+  else
+    # Dir.mkdir dest # gah! no mkdir -p...
+    sh "mkdir -p #{dest}" do |ok, err|
+      if !ok
+        puts "err: err"
+        exit 3
+      end
+    end
+  end
   puts "copying project '#{name}' from template/ to '#{dest}'" if DEBUG
-  cmd = "cp -r template/proj #{dest}"
+
+  cmd = "cp -r template/#{template}/ #{dest}"
   sh cmd do |ok, err|
     puts err if err
     puts "ok" if ok
   end
 end
+
 
 def check_args args, keys
   keys.each do |key|
@@ -30,6 +45,7 @@ def check_args args, keys
     end
   end
 end
+
 
 def do_substitute args, dest, subs=[]
   puts "dest: #{dest}" if DEBUG
@@ -47,8 +63,9 @@ def do_substitute args, dest, subs=[]
   end
 end
 
+
 namespace 'check' do
-  
+
   task :args, [:args] do |t, args|
     keys.each do |key|
       unless args[key]
@@ -58,6 +75,7 @@ namespace 'check' do
     end
   end
 end
+
 
 #
 # tasks are separated into namespaces
@@ -72,25 +90,13 @@ namespace 'new' do
     puts "Stubbing out new project" if DEBUG
     args.with_defaults(
       :name => ENV['name'] || '',
+      :template => ENV['template'] || '.',
+      :version => ENV['version'] || '.',
       :dest => ENV['dest'] || ENV['to'] || '.'
     )
-    check_args args, [:dest, :name]
-    copy_project args.name, args.dest
-    do_substitute args, args.dest, [:name]
+    check_args args, [:dest, :name, :template, :version]
+    copy_project args.name, args.template, args.dest
+    do_substitute args, args.dest, [:name, :template, :version]
   end
 
 end # namespace
-
-
-# desc 'copy task'
-# task :copy do |t|
-#   exit "TO=X" unless ENV['TO']
-#   puts ENV['TO']
-# end
-# 
-# desc "Testing environment and variables"
-# task :hello, [:name]  do |t, args|
-#   args.with_defaults(:name => ENV['name'] || "world")
-#   puts "Hello #{args.name}"
-# end
-# 

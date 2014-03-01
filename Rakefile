@@ -43,7 +43,7 @@ namespace 'project' do
     project.check_optional_args!
     project.update!
 
-    copy_project project['name'], project['template'], project['to']
+    copy_project project['name'], project['template'], project['to'] if is_local
     do_substitute project, project['to'], project.keys
   end
 end # namespace

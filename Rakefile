@@ -122,7 +122,7 @@ def do_substitute args, dest, subs=[]
   ARGV.clear
   ARGF.inplace_mode = ''
 
-  FileList["#{dest}/**/*.*"].each do |file|
+  FileList["#{dest}/**/*"].each do |file|
     ARGV << file.to_s
   end
 

@@ -14,10 +14,11 @@ fi
 type stub 2>/dev/null >/dev/null
 if [[ $? -gt 0 ]]; then
     echo
-    echo "Please add the following line to your ~/.$(basename $SHELL)rc"
-    echo "\tPATH=~/.stub:\$PATH"
+    echo "Please add stub to your ~/.$(basename $SHELL)rc"
+    echo "by running"
     echo
-    echo "and restart your shell."
+    echo "\techo PATH=~/.stub:\$PATH >> ~/.$(basename $SHELL)rc"
+    echo "\t. ~/.$(basename $SHELL)rc"
 else
     echo
     echo "\`stub'-command available"

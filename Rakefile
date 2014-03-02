@@ -91,7 +91,7 @@ namespace :typeset do
           --chapters \
           --toc-depth=2 \
           --bibliography bibliography.bib \
-          --variable=lang:ngerman \
+          --variable=lang:english \
           --variable header-includes='\usepackage{sidenotes}' \
           --variable header-includes='\usepackage{makeidx}' \
           --variable header-includes='\usepackage{minitoc}' \
@@ -146,7 +146,7 @@ namespace :typeset do
           --toc \
           --chapters \
           --bibliography bibliography.bib \
-          --variable=lang:ngerman \
+          --variable=lang:english \
           --variable header-includes='\usepackage{sidenotes}' \
           --variable header-includes='\usepackage{makeidx}' \
           --variable header-includes='\usepackage{minitoc}' \
@@ -216,4 +216,4 @@ task :open do
 end
 
 desc "Action :typeset"
-task :default => ['check:prerequisites', 'typeset:final', 'clean', :open]
+task :default => ['check:prerequisites', 'typeset:final', :clean, :open]

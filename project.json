@@ -4,6 +4,7 @@
   },
   "optional": {
     "head2": "Headline 2",
-    "head3": "Headline 3"
+    "head3": "Headline 3",
+    "language": "english"
   }
 }

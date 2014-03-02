@@ -8,21 +8,23 @@ Run
     
     curl --silent https://raw.github.com/xdbr/stub/master/install.sh | $SHELL
 
+...and follow the instructions
+
 ## Usage
 
 ### Stubbing out a project
 
 #### Using local template
 
-    ./stub project:new template=cpp to=var/foo name=foobar version=1.2.3
+    stub project:new template=cpp to=var/foo name=foobar version=1.2.3
 
 #### Using remote (git-repo) template
 
-    ./stub project:new template=http://path/to/repo.git to=var/bar name=foobar version=1.2.3
+    stub project:new template=http://path/to/repo.git to=var/bar name=foobar version=1.2.3
 
 #### Finding out about variables that need to be set / optionally can be set
 
-    ./stub project:info template=template-name
+    stub project:info template=template-name
 
 ### Defining a project stub
 
@@ -51,10 +53,6 @@ Run
 ## Listing all templates
 
     stub list:templates
-
-## Installation
-
-TBD.
 
 ## Author
 

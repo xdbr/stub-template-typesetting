@@ -1,0 +1,68 @@
+<#define ref|[#1]>
+
+<#ifdef PAGEREFS>
+  <#ifdef LATEX>
+    <#define pageref|\pageref{#1}>
+  <#else>
+    <#define pageref>
+  <#endif>
+<#else>
+  <#define pageref>
+<#endif>
+
+
+<#ifdef MAKEINDEX>
+  <#ifdef LATEX>
+    <#define index|\index{#1}>
+  <#else>
+    <#define index>
+  <#endif>
+<#else>
+  <#define index>
+<#endif>
+
+<#ifdef MINITOC>
+  <#ifdef LATEX>
+    <#define minitoc|\minitoc>
+  <#else>
+    <#define minitoc>
+  <#endif>
+<#else>
+  <#define minitoc>
+<#endif>
+
+
+<#define sidenote|`#1`>
+<#ifdef SIDENOTES>
+  <#ifdef LATEX>
+    <#define sidenote|\sidenote{#1}>
+  <#else>
+    <#define sidenote>
+  <#endif>
+<#else>
+  <#define sidenote>
+<#endif>
+
+<#ifdef PARTS>
+  <#ifdef LATEX>
+    <#define part|\part{#1}>
+  <#endif>
+<#else>
+  <#define part>
+<#endif>
+
+<#ifdef TODOS>
+  <#ifdef LATEX>
+    <#define todo|\todo{#1}>
+  <#endif>
+<#else>
+  <#define todo|[TODO: #1]>
+<#endif>
+
+<#ifdef APPENDIX>
+  <#ifdef LATEX>
+    <#define appendix|\appendix>
+  <#endif>
+<#else>
+  <#define appendix>
+<#endif>

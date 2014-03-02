@@ -7,13 +7,16 @@
 <#part Part I>
 
 # Introduction
+
 <#minitoc>
+
 <#include chapters/100-Introduction.pandoc>
 
 <#index Example>
 
 <#part II>
 # Examples
+
 <#minitoc>
 
 <#include chapters/200-Examples.pandoc>
@@ -31,6 +34,7 @@ Next, you will need the following tools to use it with full effect:
 ------------------------------------------------------------------------------
 
 <#part Appendix>
+
 <#appendix>
 
 <#include chapters/900-End.pandoc>

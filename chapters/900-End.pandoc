@@ -2,8 +2,8 @@
 
 \listoftables
 
-\renewcommand{\indexname}{Sachregister}
-\addcontentsline{toc}{section}{Sachregister}
+\renewcommand{\indexname}{Index}
+\addcontentsline{toc}{section}{Index}
 
 \newpage
 \printindex

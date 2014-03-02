@@ -3,6 +3,7 @@ require 'rake/clean'
 
 CLEAN.include FileList['main.*']
 CLEAN.exclude 'main.pandoc'
+CLEAN.exclude 'main.idx'
 
 directory "tmp"
 
@@ -100,7 +101,7 @@ namespace :typeset do
           --to latex \
           --output ] + %Q[ #{OUTPUT} \\
           && latexmk -xelatex #{OUTPUT} \\
-          && makeindex wast \\
+          && makeindex main \\
           && latexmk -xelatex #{OUTPUT} \\
           && latexmk -c #{OUTPUT}
         ]
@@ -193,7 +194,7 @@ namespace :typeset do
           --toc-depth=2 \
           --bibliography bibliography.bib \
           --to html5 \
-          --output wast.html ]
+          --output main.html ]
       puts "Typesetting html version"
       puts "Running cmd: #{cmd}"
       sh cmd do |ok, status|
@@ -206,9 +207,9 @@ end
 desc "Open document in PDF viewer"
 task :open do
   if OS.mac?
-    %x{ open wast.pdf }
+    %x{ open main.pdf }
   elsif OS.linux?
-    %x{ ${DISPLAY} wast.pdf }
+    %x{ ${DISPLAY} main.pdf }
   else
      print "Unable to open Document"
   end

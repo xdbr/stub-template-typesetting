@@ -3,6 +3,11 @@ stub
 
 stunningly simple & stupid language agnostic project generator
 
+## Installation
+Run
+    
+    curl --silent https://raw.github.com/xdbr/stub/master/install.sh | $SHELL
+
 ## Usage
 
 ### Stubbing out a project

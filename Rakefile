@@ -133,24 +133,18 @@ end
 def do_substitute args, dest, subs=[]
   puts "dest: #{dest}" if DEBUG
   puts "subs: #{subs}" if DEBUG
-  x subs if DEBUG
 
-  # this Filelist will only match files which include a dot / have and extension!
-  files = FileList["#{dest}/**/*.*"]
-
-x args
-  files.each do |file|
+  ARGV.clear
+  FileList["#{dest}/**/*.*"].each do |file|
+    ARGV << file.to_s
+  end
+  
+  ARGF.inplace_mode = ''
+  ARGF.lines do |line|
     subs.each do |sub|
-      puts "file: #{file}" if DEBUG
-      puts "sub: #{sub} -> #{args[sub]}"
-      cmd = "perl -i -pe 's<\\{\\{#{sub}\\}\\}><#{args[sub]}>go' #{file}"
-      verbose(VERBOSE) do
-        sh cmd do |ok, err|
-          puts err if err
-          puts "ok" if ok and DEBUG
-        end
-      end
+      line.gsub!("{{#{sub}}}", args[sub])
     end
+    print line
   end
 end
 

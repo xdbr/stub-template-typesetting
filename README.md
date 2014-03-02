@@ -9,7 +9,7 @@ Usage
 * install [stub](https://github.com/xdbr/stub)
 * `stub project:new template=https://github.com/xdbr/stub-template-typesetting to=docs head1=foo-document`
 * `cd docs`
-* install the projects dependencies
+* (install the projects dependencies)
 * `rake`
 * `open main.pdf`
 
@@ -30,3 +30,5 @@ Daniel (<daniel@codeedition.de>)
 
 License
 -------
+
+WTFPL

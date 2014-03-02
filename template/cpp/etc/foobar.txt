@@ -1,0 +1,8 @@
+#ifndef {{name}}
+#define {{name}}
+
+class {{name}}Class {
+  std::string template_used = "{{template}}";
+};
+
+#endif

@@ -123,7 +123,7 @@ def do_substitute args, dest, subs=[]
   ARGF.inplace_mode = ''
 
   FileList["#{dest}/**/*"].each do |file|
-    ARGV << file.to_s
+    ARGV << file.to_s if File.file?(file)
   end
 
   ARGF.lines do |line|

@@ -1,0 +1,9 @@
+{
+  "requires": {
+  },
+  "optional": {
+    "head1": "Headline 1",
+    "head2": "Headline 2",
+    "head3": "Headline 3"
+  }
+}

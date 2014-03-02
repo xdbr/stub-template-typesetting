@@ -1,0 +1,8 @@
+
+Check out some of the main features of this template:
+
+## ditaa
+
+~~~~~ {.ditaa .rounded-corners .no-separation .no-shadows .title=The Typesetting Process .label=fig:typesetting-process}
+<#include ../resources/ditaa/typesetting-process.ditaa>
+~~~~~

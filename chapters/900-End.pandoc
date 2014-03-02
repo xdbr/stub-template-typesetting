@@ -1,0 +1,13 @@
+\listoffigures
+
+\listoftables
+
+\renewcommand{\indexname}{Sachregister}
+\addcontentsline{toc}{section}{Sachregister}
+
+\newpage
+\printindex
+
+# Bibliography {-}
+
+<!-- bibliohgraphy will be inserted here -->

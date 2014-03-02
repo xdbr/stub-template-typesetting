@@ -108,25 +108,11 @@ end
 # functions that are available to tasks
 #
 def copy_project name='', template='', dest=''
-  # puts "File.exists?(dest) #{File.exists?(dest)}" if DEBUG            ### ????
   die "Project already exists at #{dest} \
        and would be overwritten! Abort.", 2 if File.exists?(dest)
 
-  # Dir.mkdir dest # gah! no mkdir -p...
-  verbose(VERBOSE) do
-    sh "mkdir -p #{dest}" do |ok, err|
-      die "err: err", 3 if !ok
-    end
-  end
-  # end
-
-  puts "copying project '#{name}' from template/ to '#{dest}'" if DEBUG
-
-  cmd = "cp -r template/#{template}/ #{dest}"
-  sh cmd do |ok, err|
-    puts err if err
-    puts "ok" if ok
-  end
+  FileUtils.mkdir_p dest
+  FileUtils.cp_r Dir.glob("template/#{template}/*"), dest
 end
 
 

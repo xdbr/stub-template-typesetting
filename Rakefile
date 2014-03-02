@@ -29,7 +29,6 @@ namespace 'project' do
     require 'JSON'
 
     is_local = File.exists?("template/#{ENV['template']}")
-    puts is_local
 
     project = {}
     if is_local
@@ -121,11 +120,12 @@ def do_substitute args, dest, subs=[]
   puts "subs: #{subs}" if DEBUG
 
   ARGV.clear
+  ARGF.inplace_mode = ''
+
   FileList["#{dest}/**/*.*"].each do |file|
     ARGV << file.to_s
   end
-  
-  ARGF.inplace_mode = ''
+
   ARGF.lines do |line|
     subs.each do |sub|
       line.gsub!("{{#{sub}}}", args[sub])
@@ -142,39 +142,3 @@ end
 def x u
   puts "u: #{u}"
 end
-
-
-# namespace 'check' do
-#   task :args, [:args] do |t, args|
-#     args.each do |key|
-#       puts "check key: #{key}"
-#       unless args[key]
-#         puts "Argument '#{key}' required!" if DEBUG
-#         exit 1
-#       end
-#     end
-#   end
-# end
-
-# def check_args args, keys
-#   keys.each do |key|
-#     unless args["#{key}"]
-#       puts "Argument '#{key}' required!" if DEBUG
-#       exit 1
-#     end
-#   end
-# end
-
-# def checker proj, args
-#   require "JSON"
-#   res = JSON.load(File.new("#{proj}/project.json"))
-#   # res['requires'].keys.each do |key|
-#   #   if ENV[key].nil?
-#   #     puts "Key: #{key} is required on the CLI"
-#   #     exit 42
-#   #   end
-#   # end
-#   # res
-#   res['requires'].keys
-# end
-

@@ -13,16 +13,26 @@ namespace 'list' do
   end
 end
 
-namespace 'project' do
+namespace 'template' do
   desc 'Get info about a project'
   task :info do |t|
     require 'JSON'
 
-    project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
+    # project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
+    is_local = File.exists?("template/#{ENV['template']}")
+    project = {}
+    if is_local
+      project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
+    else
+      template = %x: git clone #{ENV['template']} ./template/.store/#{ENV['template']} 2>/dev/null 1>/dev/null:
+      # save this to some tmp/ dir first and delete afterwards if necessary
+      project = JSON.load(File.new("./template/.store/#{ENV['template']}/project.json"))
+    end
+
     puts project.info
   end
 
-  desc 'Stub out new poject'
+  desc 'Stub out new poject or class'
   task :new do |t|
     die "argument template=PROJECTNAME required! Abort.", 99 unless ENV.to_hash.minimum? ['template', 'to']
 
@@ -34,6 +44,7 @@ namespace 'project' do
     if is_local
       project = JSON.load(File.new("./template/#{ENV['template']}/project.json"))
     else
+      die "A project already exists at '#{ENV['to']}'!\nPlease remove the directory and start again.", 12 if File.exists?("#{ENV['to']}")
       template = %x: git clone #{ENV['template']} #{ENV['to']} :
       # save this to some tmp/ dir first and delete afterwards if necessary
       project = JSON.load(File.new("./#{ENV['to']}/project.json"))

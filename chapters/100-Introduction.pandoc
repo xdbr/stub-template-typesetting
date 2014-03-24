@@ -1,8 +1,12 @@
 
 ## Template Description
+<#epigraph
+  The major difference between a thing that might go wrong and a thing that cannot possibly go wrong is that when a thing that cannot possibly go wrong goes wrong it usually turns out to be impossible to get at or repair.|
+  Douglas Adams
+>
 
-This is a general template for many typesettings needs.
+<#lettrines T|his|3> is a general template for many typesettings needs taking care of all basic typesetting needs and requirements. Lettrines turn out best when the paragraph they are standing in front of spans over multiple lines.
 
-May it be documentation, an assignment, a thesis, ... this is the right place you have come to.<#sidenote It's true! BTW: You can turn off sidenotes in your final typesetting>
+<#lettrine M|ay> it be documentation, an assignment, a thesis, ... this is the right place you have come to.<#sidenote It's true! BTW: You can turn off sidenotes in your final typesetting>
 
 

@@ -66,3 +66,21 @@
 <#else>
   <#define appendix>
 <#endif>
+
+<#ifdef EPIGRAPHS>
+  <#ifdef LATEX>
+    <#define epigraph|\epigraph{#1}{#2}>
+  <#endif>
+<#else>
+  <#define epigraph|#1 #2>
+<#endif>
+
+<#ifdef LETTRINES>
+  <#ifdef LATEX>
+    <#define lettrines|\lettrine[lines=#3]{#1}{#2}>
+    <#define lettrine |\lettrine{#1}{#2}>
+  <#endif>
+<#else>
+  <#define lettrines|#1#2>
+  <#define lettrine |#1#2>
+<#endif>

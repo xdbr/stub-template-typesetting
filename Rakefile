@@ -3,7 +3,10 @@ require 'rake/clean'
 
 CLEAN.include FileList['main.*']
 CLEAN.exclude 'main.pandoc'
+CLEAN.exclude 'main.pdf'
 CLEAN.exclude 'main.idx'
+
+CLOBBER.include 'main.pdf'
 
 directory "tmp"
 
@@ -81,6 +84,8 @@ namespace :typeset do
           -DMINITOC \
           -DMAKEINDEX \
           -DSIDENOTES \
+          -DEPIGRAPHS \
+          -DLETTRINES \
           -DPARTS \
         | ppp \
         | pandoc \
@@ -92,6 +97,8 @@ namespace :typeset do
           --toc-depth=2 \
           --bibliography bibliography.bib \
           --variable=lang:english \
+          --variable header-includes='\usepackage{lettrine}' \
+          --variable header-includes='\usepackage{epigraph}' \
           --variable header-includes='\usepackage{sidenotes}' \
           --variable header-includes='\usepackage{makeidx}' \
           --variable header-includes='\usepackage{minitoc}' \
@@ -155,7 +162,7 @@ namespace :typeset do
           --variable links-as-notes \
           --variable fontsize=10pt,draft \
           --variable documentclass=book \
-          --output ] + %Q[ #{OUTPUT} ]
+          --output main.pdf]
       #     && \\
       #   xelatex #{OUTPUT}
       # ] 
